@@ -1,0 +1,31 @@
+{
+  "name": "pull-spawn",
+  "version": "0.0.1",
+  "main": "./index.js",
+  "description": "Spawn pull streams into substreams.",
+  "homepage": "https://github.com/tounano/pull-spawn/",
+  "author": "ClickHere <js@clickhere.co.il>",
+  "keywords": [
+    "streams",
+    "pull-stream",
+    "fork",
+    "spawn"
+  ],
+  "licenses": {
+    "type": "The MIT License",
+    "url": "http://www.opensource.org/licenses/mit-license.php"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tounano/pull-spawn"
+  },
+  "engines": {
+    "node": ">=0.6.11 <=0.7.0 || >=0.7.3"
+  },
+  "dependencies": {
+    "pull-stream": "latest",
+    "underscore": "latest",
+    "pull-unwind": "latest",
+    "pull-parrot": "latest"
+  }
+}
