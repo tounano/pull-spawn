@@ -8,7 +8,7 @@ var fork = module.exports = pull.Through(function (read, sink) {
 
   var ended, forkEnded, pullReads = [], pullCbs = [], forkCbs = [], output = []
 
-  readable.forked = sink(function (end, cb) {
+  readable.child = sink(function (end, cb) {
     forkEnded = forkEnded || end;
     if (forkEnded) return cb(forkEnded);
 

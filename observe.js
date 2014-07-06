@@ -7,7 +7,7 @@ var observe = module.exports = pull.Through(function (read, sink) {
   read = args.shift(); sink = args.shift();
   if (args.length) read = observe(args)(read);
 
-  var observed = parrot(); readable.observed = sink(observed);
+  var observed = parrot(); readable.child = sink(observed);
 
   function readable (end, cb) {
     read(end, function (end, data) {

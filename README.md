@@ -70,7 +70,7 @@ was aborted.
 
 #### args
 
-`sink` is a through stream.
+`sink`, as it sounds, should be a sink stream.
 
 ```js
 pull(
@@ -80,14 +80,14 @@ pull(
 )
 ```
 
-You can specify several through streams:
+You can specify several sinks:
 
 ```js
 pull(
   pull.count(10),
   spawn.fork(
-    through1,
-    through2
+    sink1,
+    sink2
   ),
   pull.log()
 )
@@ -98,8 +98,8 @@ Which is eventually similar to:
 ```js
 pull(
   pull.count(10),
-  spawn.fork(through1)
-  spawn.fork(through2)
+  spawn.fork(sink1)
+  spawn.fork(sink2)
   pull.log()
 )
 ```
@@ -129,6 +129,27 @@ pull(
 )
 ```
 
+#### advanced usage: fork a through
+
+```js
+var read = someSourceStream;
+var s = spawn.fork(through)(read);
+
+// main stream
+pull(
+  s,
+  pull.log();
+)
+
+// forked stream
+pull(
+  s.child,
+  pull.log();
+)
+```
+
+As you can see, if you fork a pull-stream manually, you'll be able to access `pipedStream.child` and read from it.
+
 ### spawn.observe(sink)
 
 `observe` is exactly the same as `fork`, with one difference. It would read as fast as the main sink reads. Which means
@@ -136,7 +157,7 @@ that if the observer is a slow sink, it's data will be buffered.
 
 If the observer is faster than the main sink, it will wait the main sink to read.
 
-Everything else, is exactly the same.
+Everything else, is exactly the same (including the `child` property).
 
 #### example
 
