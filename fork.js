@@ -8,7 +8,7 @@ var fork = module.exports = pull.Through(function (read, sink) {
 
   var ended, forkEnded, pullReads = [], pullCbs = [], forkCbs = [], output = []
 
-  sink(function (end, cb) {
+  readable.forked = sink(function (end, cb) {
     forkEnded = forkEnded || end;
     if (forkEnded) return cb(forkEnded);
 
@@ -19,8 +19,8 @@ var fork = module.exports = pull.Through(function (read, sink) {
   function drain() {
     while (output.length && pullCbs.length && (forkCbs.length || forkEnded))
       (function (end, data, cb, forkCb) {
-        cb(end, data);
         forkCb && forkCb(_.clone(end), _.clone(data));
+        cb(end, data);
       })(output[0][0], output.shift()[1], pullCbs.shift(), forkCbs.shift());
 
     while (pullReads.length && (forkCbs.length || forkEnded))
@@ -39,8 +39,10 @@ var fork = module.exports = pull.Through(function (read, sink) {
       })(pullReads[0][0], pullReads.shift()[1]);
   }
 
-  return function (end, cb) {
+  function readable (end, cb) {
     pullReads.push([end, cb]);
     drain();
   }
+
+  return readable;
 });
