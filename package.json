@@ -1,6 +1,6 @@
 {
   "name": "pull-spawn",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "./index.js",
   "description": "Spawn pull streams into substreams.",
   "homepage": "https://github.com/tounano/pull-spawn/",
@@ -26,6 +26,7 @@
     "pull-stream": "latest",
     "underscore": "latest",
     "pull-unwind": "latest",
-    "pull-parrot": "latest"
+    "pull-parrot": "latest",
+    "pull-control": "latest"
   }
 }

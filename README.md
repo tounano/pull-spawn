@@ -182,6 +182,12 @@ pull(
 )
 ```
 
+### spawn.consume(sink)
+
+Similar to `observe` and `fork` with one main difference. It will pull data from upstream as fast as the fastes consumer
+ (could be the main consumer, or the alternative consumer). The stream will abort consuming data after the last consumer
+ was terminated.
+
 ## install
 
 With [npm](https://npmjs.org) do:
