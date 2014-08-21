@@ -9,7 +9,8 @@ var isolate = module.exports = pull.Through(function (read, throughCreator) {
     read(end, function (end, data) {
       if (end) return cb(end);
       var parrot = parrotStream();
-      var d = _.clone(data);
+      var d = data;
+      if (typeof data !== 'function') d = _.clone(data);
       parrot.push(_.clone(end), d);
       parrot.end();
 
