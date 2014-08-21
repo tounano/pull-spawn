@@ -36,8 +36,8 @@ var consume = module.exports = pull.Through(function (read, sink) {
       if (buffers[buf] && buffers[buf].length){ return cb(buffers[buf][0][0], buffers[buf].shift()[1]);}
       if (_ending) return cb(_ending, cb);
 
-      readToBuffer(end, function (end) {
-        _ending = _ending || end;
+      readToBuffer(end, function (_end) {
+        _ending = _ending || _end;
         return next(end, cb);
       });
     }
