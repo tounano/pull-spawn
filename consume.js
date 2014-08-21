@@ -1,11 +1,12 @@
 var pull = require("pull-stream");
-var parrot = require("pull-parrot");
 var _ = require("underscore");
+var control = require('pull-control');
 
 var consume = module.exports = pull.Through(function (read, sink) {
   var args = _.isArray(sink) ? _.union([read], sink) : [].slice.call(arguments);
   read = args.shift(); sink = args.shift();
   if (args.length) read = consume(args)(read);
+  read = control.serial()(read);
 
   var buffers = {main:[], consumer:[]}, ended;
 
